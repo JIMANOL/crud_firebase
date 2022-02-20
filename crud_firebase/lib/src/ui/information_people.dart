@@ -11,6 +11,8 @@ class InfoPersona extends StatefulWidget {
   _InfoPersonaState createState() => _InfoPersonaState();
 }
 
+final personaRef = FirebaseDatabase.instance.reference().child('persona');
+
 class _InfoPersonaState extends State<InfoPersona> {
   // List<Persona> items; //Error por no inicializar :c
   late List<Persona> items;
