@@ -67,7 +67,7 @@ class _ScreenPersonaState extends State<ScreenPersona> {
                 Divider(),
                 ///////////////////////////////////////TextField->APELLIDO///////////////////////////////////////////////////
                 TextField(
-                  controller: nombreController,
+                  controller: apellidoController,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                   decoration: InputDecoration(
                       icon: Icon(Icons.person), labelText: 'Apellido'),
@@ -77,14 +77,71 @@ class _ScreenPersonaState extends State<ScreenPersona> {
                 Divider(),
                 ///////////////////////////////////////TextField->EDAD///////////////////////////////////////////////////
                 TextField(
-                  controller: nombreController,
+                  controller: edadController,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                   decoration: InputDecoration(
                       icon: Icon(Icons.calendar_today), labelText: 'Edad'),
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                 ),
                 Padding(padding: EdgeInsets.only(top: 8.0)),
                 Divider(),
+                ///////////////////////////////////////TextField->TELEFONO///////////////////////////////////////////////////
+                TextField(
+                  controller: telController,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.phone), labelText: 'Teléfono'),
+                  keyboardType: TextInputType.phone,
+                ),
+                Padding(padding: EdgeInsets.only(top: 8.0)),
+                Divider(),
+                ///////////////////////////////////////TextField->DIRECCION///////////////////////////////////////////////////
+                TextField(
+                  controller: dirController,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.map), labelText: 'Direccion'),
+                  //keyboardType: TextInputType.text,
+                ),
+                Padding(padding: EdgeInsets.only(top: 8.0)),
+                Divider(),
+                ///////////////////////////////////////TextField->EMAIL///////////////////////////////////////////////////
+                TextField(
+                  controller: emailController,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.email), labelText: 'Email'),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                Padding(padding: EdgeInsets.only(top: 8.0)),
+                Divider(),
+                ///////////////////////////////////////BOTÓN///////////////////////////////////////////////////
+                // ignore: deprecated_member_use
+                FlatButton(
+                    onPressed: () {
+                      if (widget.persona.id != null) {
+                        personaRef.child(widget.persona.id).set({
+                          'nombre': nombreController.text,
+                          'apellido': apellidoController.text,
+                          'edad': edadController.text,
+                          'tel': telController.text,
+                          'dir': dirController.text,
+                          'email': emailController.text
+                        }).then((_) => {Navigator.pop(context)});
+                      } else {
+                        personaRef.push().set({
+                          'nombre': nombreController.text,
+                          'apellido': apellidoController.text,
+                          'edad': edadController.text,
+                          'tel': telController.text,
+                          'dir': dirController.text,
+                          'email': emailController.text
+                        }).then((_) => {Navigator.pop(context)});
+                      }
+                    },
+                    child: (widget.persona.id != null)
+                        ? Text('Update')
+                        : Text('Add'))
               ],
             ),
           ),

@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 
 class ListViewPerson extends StatefulWidget {
   //ListViewPerson({Key key}) : super(key: key); // --> Marcó error
-  ListViewPerson({required Key key}) : super(key: key);
+  ListViewPerson({Key? key}) : super(key: key);
 
   @override
   ListViewPersonState createState() => ListViewPersonState();
@@ -30,7 +30,7 @@ class ListViewPersonState extends State<ListViewPerson> {
     //items = new List(); // --> Marcó error
     items = List.empty();
     addPersonas = personaRef.onChildAdded.listen((event) {
-      _addPersona; //Aquí estaba _addPersona pero la profa no hizo la funcion
+      _addPersona;
     });
     changePersonas = personaRef.onChildAdded.listen((event) {
       _updatePersona;
@@ -154,7 +154,7 @@ class ListViewPersonState extends State<ListViewPerson> {
     });
   }
   */
-
+/*
   void _agregarPersona(BuildContext context) async {
     await Navigator.push(context, MaterialPageRoute(
       builder: (context) {
@@ -162,7 +162,18 @@ class ListViewPersonState extends State<ListViewPerson> {
         var id = null;
         return
             // No permitió Persona(Null, '', '', '', '', '', '',)
-            ScreenPersona(Persona(
+            ScreenPersona(Persona(id, '', '', '', '', '', '',));
+      },
+    ));
+  }
+*/
+
+  void _agregarPersona(BuildContext context) async {
+    await Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        // ignore: avoid_init_to_null
+        var id = null;
+        return ScreenPersona(Persona(
           id,
           '',
           '',
