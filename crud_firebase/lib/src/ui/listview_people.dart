@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, deprecated_member_use, prefer_const_constructors, unnecessary_string_interpolations
-
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:crud_firebase/src/model/people.dart';
@@ -9,32 +9,28 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 class ListViewPerson extends StatefulWidget {
-  //ListViewPerson({Key key}) : super(key: key); // --> Marcó error
-  ListViewPerson({Key? key}) : super(key: key);
+  ListViewPerson({Key key}) : super(key: key); // --> Marcó error
+  //ListViewPerson({Key? key}) : super(key: key);
 
   @override
-  ListViewPersonState createState() => ListViewPersonState();
+  _ListViewPersonState createState() => _ListViewPersonState();
 }
 
 final personaRef = FirebaseDatabase.instance.reference().child('persona');
 
-class ListViewPersonState extends State<ListViewPerson> {
+class _ListViewPersonState extends State<ListViewPerson> {
   //List<Persona> items; //Error por no inicializar :c
-  late List<Persona> items;
+  List<Persona> items;
   //StreamSubscription<Event> ---Personas; //Error por no inicializar :c
-  late StreamSubscription<Event> addPersonas;
-  late StreamSubscription<Event> changePersonas;
+  StreamSubscription<Event> addPersonas;
+  StreamSubscription<Event> changePersonas;
   @override
   void initState() {
     super.initState();
     //items = new List(); // --> Marcó error
-    items = List.empty();
-    addPersonas = personaRef.onChildAdded.listen((event) {
-      _addPersona;
-    });
-    changePersonas = personaRef.onChildAdded.listen((event) {
-      _updatePersona;
-    });
+    items = new List();
+    addPersonas = personaRef.onChildAdded.listen(_addPersona);
+    changePersonas = personaRef.onChildAdded.listen(_updatePersona);
   }
 
   @override
@@ -59,7 +55,7 @@ class ListViewPersonState extends State<ListViewPerson> {
               itemCount: items.length,
               padding: EdgeInsets.only(top: 12.0),
               itemBuilder: (context, position) {
-                return Column(
+                return Row(
                   // ignore: prefer_const_literals_to_create_immutables
                   children: <Widget>[
                     Expanded(
