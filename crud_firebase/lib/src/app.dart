@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:crud_firebase/src/ui/listview_people.dart';
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -11,11 +12,5 @@ class MyApp extends StatefulWidget {
         child: ListViewPerson(),
       ),
     );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
   }
 }
